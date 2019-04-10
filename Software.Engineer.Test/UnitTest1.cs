@@ -319,7 +319,7 @@ namespace Tests
         public void TestCalculation()
         {
             // Setup
-            var equationCalculation = new EquationCalc(4, array);
+            var equationCalculation = new EquationCalculation(4, array);
 
             Assert.AreEqual(0.279525f, equationCalculation.GetResult(4, 4));
         }

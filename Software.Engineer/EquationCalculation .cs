@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Software.Engineer
 {
-    public class EquationCalc
+    public class EquationCalculation
     {
         #region Fields
         private readonly float[] _array;
@@ -13,9 +13,9 @@ namespace Software.Engineer
         #endregion Fields
 
         #region Constructors
-        public EquationCalc(int c, float[] array) : this(c, array, array.Length) { }
+        public EquationCalculation(int c, float[] array) : this(c, array, array.Length) { }
 
-        public EquationCalc(int c, float[] array, int length)
+        public EquationCalculation(int c, float[] array, int length)
         {
             _array = array;
             _length = length;

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Software.Engineer": {
+      "commandName": "Project",
+      "commandLineArgs": "-f c:\\temp\\test.prn -c 4 -N 300"
+    }
+  }
+}
