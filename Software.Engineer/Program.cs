@@ -151,7 +151,7 @@ namespace Software.Engineer
             {
                 _array = lines.Select(x => float.Parse(x.Trim())).ToArray();
             }
-            catch(Exception ex)
+            catch
             {
                 ValidationFailed = true;
                 ErrorMessage.AppendLine();

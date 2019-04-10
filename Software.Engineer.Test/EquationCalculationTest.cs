@@ -3,7 +3,7 @@ using Software.Engineer;
 
 namespace Tests
 {
-    public class Tests
+    public class EquationCalculationTest
     {
         float[] array;
 
