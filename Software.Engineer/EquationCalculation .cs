@@ -6,20 +6,37 @@ namespace Software.Engineer
 {
     public class EquationCalc
     {
+        #region Fields
         private readonly float[] _array;
         private readonly int _length;
+        private readonly int _c;
+        #endregion Fields
 
-        public EquationCalc(float[] array) : this(array, array.Length) { }
+        #region Constructors
+        public EquationCalc(int c, float[] array) : this(c, array, array.Length) { }
 
-        public EquationCalc(float[] array, int length)
+        public EquationCalc(int c, float[] array, int length)
         {
             _array = array;
             _length = length;
+            _c = c;
         }
+        #endregion Constructors
 
-        public double GetResult(int v1, int v2)
+        #region Methods
+        public float GetResult(int k, int j)
         {
-            throw new NotImplementedException();
+            float sumOfArray = 0;
+            for (int i = _c; i < _length; i++)
+            {
+                sumOfArray += _array[i];
+            }
+
+            float resultK = _array[k];
+            float resultJ = _array[j];
+
+            return sumOfArray * resultK * resultJ;
         }
+        #endregion Methods
     }
 }
