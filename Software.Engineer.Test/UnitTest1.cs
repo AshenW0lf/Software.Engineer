@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Software.Engineer;
 
 namespace Tests
 {
@@ -317,8 +318,11 @@ namespace Tests
         [Test]
         public void TestCalculation()
         {
+            // Setup
+            var equationCalculation = new EquationCalc(array);
 
-            Assert.Pass();
+
+            Assert.AreEqual(0.279525, equationCalculation.GetResult(4, 4));
         }
     }
 }
