@@ -28,7 +28,7 @@
                 sumOfArray += (_array[i - k] * _array[i - j]);
             }
 
-            return sumOfArray;
+            return (float)System.Math.Round(sumOfArray, 6);
         }
         #endregion Methods
     }
