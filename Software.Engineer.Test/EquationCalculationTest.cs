@@ -322,7 +322,7 @@ namespace Tests
             IEquationCalculation equationCalculation = new EquationCalculation(4, array);
 
             //validate
-            Assert.AreEqual(0.279525f, equationCalculation.GetResult(4, 4));
+            Assert.AreEqual(0.279524982f, equationCalculation.GetResult(0, 0));
         }
     }
 }
