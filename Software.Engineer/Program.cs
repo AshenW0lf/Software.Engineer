@@ -56,15 +56,16 @@ namespace Software.Engineer
         /// <param name="matrix">Matrix to display</param>
         private static void DisplayMatrix(float[,] matrix)
         {
+            Console.WriteLine();
             for (int k = 0; k <= _c; k++)
             {
-                Console.Write("| ");
+                Console.Write(" | ");
                 for (int j = 0; j <= _c; j++)
                 {
-                    Console.Write(matrix[k, j]);
-                    Console.Write("\t");
+                    Console.Write(matrix[k, j].ToString("0.000000"));
+                    Console.Write(" ");
                 }
-                Console.Write("\t|");
+                Console.Write("|");
                 Console.WriteLine();
             }
         }
