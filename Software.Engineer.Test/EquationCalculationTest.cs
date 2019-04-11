@@ -323,6 +323,7 @@ namespace Tests
 
             //validate
             Assert.AreEqual(0.279524982f, equationCalculation.GetResult(0, 0));
+            Assert.AreEqual(0.279525, System.Math.Round(equationCalculation.GetResult(0, 0), 6));
         }
     }
 }
