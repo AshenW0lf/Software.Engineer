@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Software.Engineer
 {
-    public class EquationCalculation
+    public class EquationCalculation : IEquationCalculation
     {
         #region Fields
         private readonly float[] _array;
@@ -17,6 +17,15 @@ namespace Software.Engineer
 
         public EquationCalculation(int c, float[] array, int length)
         {
+            if(array == null)
+                throw new ArgumentNullException("array cannot be null");
+
+            if (c < 1 && c >= array.Length)
+                throw new ArgumentException("c is out of bounds");
+
+            if(length != array.Length)
+                throw new ArgumentException($"in valid array length, expected {array.Length} got {length}");
+
             _array = array;
             _length = length;
             _c = c;

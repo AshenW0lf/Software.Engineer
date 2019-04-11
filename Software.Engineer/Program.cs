@@ -25,7 +25,7 @@ namespace Software.Engineer
                 Console.Write(ErrorMessage);
             else
             {
-                var calculator = new EquationCalculation(_c, _array, _n);
+                IEquationCalculation calculator = new EquationCalculation(_c, _array, _n);
                 var matrix = new float[_c + 1, _c + 1];
                 for (int k = 0; k <= _c; k++)
                 {
