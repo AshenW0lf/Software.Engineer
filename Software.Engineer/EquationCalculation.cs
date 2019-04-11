@@ -22,15 +22,13 @@
         public override float GetResult(int k, int j)
         {
             float sumOfArray = 0;
+
             for (int i = _c; i < _length; i++)
             {
-                sumOfArray += _array[i];
+                sumOfArray += (_array[i - k] * _array[i - j]);
             }
 
-            float resultK = _array[k];
-            float resultJ = _array[j];
-
-            return sumOfArray * resultK * resultJ;
+            return sumOfArray;
         }
         #endregion Methods
     }
