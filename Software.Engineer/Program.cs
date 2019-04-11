@@ -9,7 +9,6 @@ namespace Software.Engineer
     class Program
     {
         #region Properties
-        private static bool ValidationFailed { get; set; } = false;
         private static StringBuilder ErrorMessage { get; } = new StringBuilder("ERROR!");
         #endregion Properties
 
@@ -22,8 +21,7 @@ namespace Software.Engineer
         #region Entry
         static void Main(string[] args)
         {
-            InitiliseAruments(args);
-            if (ValidationFailed)
+            if (!InitialiseAruments(args))
                 Console.Write(ErrorMessage);
             else
             {
@@ -44,6 +42,10 @@ namespace Software.Engineer
         #endregion Entry
 
         #region Methods
+        /// <summary>
+        /// Displays a matrix on the console window
+        /// </summary>
+        /// <param name="matrix">Matrix to display</param>
         private static void DisplayMatrix(float[,] matrix)
         {
             for (int k = 0; k <= _c; k++)
@@ -59,7 +61,12 @@ namespace Software.Engineer
             }
         }
 
-        private static void InitiliseAruments(string[] args)
+        /// <summary>
+        /// Initialises and validates arguments passed to the application
+        /// </summary>
+        /// <param name="args">String array of args</param>
+        /// <returns>true if all args are valid</returns>
+        private static bool InitialiseAruments(string[] args)
         {
             var app = new CommandLineApplication
             {
@@ -80,82 +87,90 @@ namespace Software.Engineer
             var nOption = app.Option("-N <N>",
                     "Value of N",
                     CommandOptionType.SingleValue);
-
+            bool initalised = true;
             app.OnExecute(() =>
             {
                 if (fileOption.HasValue())
                 {
-                    ValidateFilePath(fileOption.Value());
-                }
-                else
-                {
-                    app.ShowHint();
+                    initalised = ValidateFilePathExtractData(fileOption.Value());
                 }
 
-                if (cOption.HasValue())
+                if (cOption.HasValue() && initalised)
                 {
-                    Validate(ref _c, cOption);
-                }
-                else
-                {
-                    app.ShowHint();
+                    initalised = Validate(ref _c, cOption);
                 }
 
-                if (nOption.HasValue())
-                {
-                    Validate(ref _n, nOption);
-                }
-                else
-                {
-                    app.ShowHint();
+                if (nOption.HasValue() && initalised)
+                { 
+                    initalised = Validate(ref _n, nOption);
                 }
 
-                return 0;
+                return initalised ? 0 : -1;
             });
             
-            app.Execute(args);
+            return app.Execute(args) == 0;
         }
 
-        private static void Validate(ref int i, CommandOption option)
+        /// <summary>
+        /// Validates option is an integer
+        /// </summary>
+        /// <param name="i">reference integer</param>
+        /// <param name="option">Option to validate</param>
+        /// <returns>true if the option is valid</returns>
+        private static bool Validate(ref int i, CommandOption option)
         {
             if (int.TryParse(option.Value(), out i))
-                return;
-            else
-            {
-                ValidationFailed = true;
-                ErrorMessage.AppendLine();
-                ErrorMessage.Append(option.ValueName);
-                ErrorMessage.Append(" is not a valid int.");
-            }
+                return true;
+
+            ErrorMessage.AppendLine();
+            ErrorMessage.Append(option.ValueName);
+            ErrorMessage.Append(" is not a valid int.");
+            return false;
         }
 
-        public static void ValidateFilePath(string path)
+        /// <summary>
+        /// Validates and extracts data from a file path
+        /// </summary>
+        /// <param name="path">path to the file</param>
+        /// <returns>true if file is valid</returns>
+        public static bool ValidateFilePathExtractData(string path)
         {
             if(File.Exists(path) && path.ToLower().EndsWith(".prn"))
             {
-                ReadFromFile(path);
+                return ReadFromFile(path);
             }
-            else
-            {
-                ValidationFailed = true;
-                ErrorMessage.AppendLine();
-                ErrorMessage.Append(path);
-                ErrorMessage.Append(" is not a valid file name.");
-            }
+
+            ErrorMessage.AppendLine();
+            ErrorMessage.Append(path);
+            ErrorMessage.Append(" is not a valid file name.");
+
+            return false;
         }
 
-        public static void ReadFromFile(string path)
+        /// <summary>
+        /// Read all line from the file
+        /// </summary>
+        /// <param name="path">path to the file</param>
+        /// <returns>true if the data is valid</returns>
+        public static bool ReadFromFile(string path)
         {
             var lines = File.ReadAllLines(path);
             try
             {
                 _array = lines.Select(x => float.Parse(x.Trim())).ToArray();
+                return true;
             }
-            catch
+            catch(IOException)
             {
-                ValidationFailed = true;
                 ErrorMessage.AppendLine();
                 ErrorMessage.Append("File contains an invalid value.");
+                return false;
+            }
+            catch(Exception ex)
+            {
+                ErrorMessage.AppendLine();
+                ErrorMessage.Append($"An Exception has occurred '{ex.Message}'");
+                return false;
             }
         }
         #endregion Methods
