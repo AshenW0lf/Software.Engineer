@@ -319,8 +319,9 @@ namespace Tests
         public void TestCalculation()
         {
             // Setup
-            var equationCalculation = new EquationCalculation(4, array);
+            IEquationCalculation equationCalculation = new EquationCalculation(4, array);
 
+            //validate
             Assert.AreEqual(0.279525f, equationCalculation.GetResult(4, 4));
         }
     }

@@ -25,17 +25,25 @@ namespace Software.Engineer
                 Console.Write(ErrorMessage);
             else
             {
-                IEquationCalculation calculator = new EquationCalculation(_c, _array, _n);
-                var matrix = new float[_c + 1, _c + 1];
-                for (int k = 0; k <= _c; k++)
+                try
                 {
-                    for (int j = 0; j <= _c; j++)
+                    IEquationCalculation calculator = new EquationCalculation(_c, _array, _n);
+                    var matrix = new float[_c + 1, _c + 1];
+                    for (int k = 0; k <= _c; k++)
                     {
-                        matrix[k, j] = calculator.GetResult(k, j);
+                        for (int j = 0; j <= _c; j++)
+                        {
+                            matrix[k, j] = calculator.GetResult(k, j);
+                        }
                     }
-                }
 
-                DisplayMatrix(matrix);
+
+                    DisplayMatrix(matrix);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An exception has occurred '{ex.Message}'");
+                }
             }
             Console.Read();
         }
