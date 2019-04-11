@@ -21,7 +21,7 @@ namespace Software.Engineer
         #region Entry
         static void Main(string[] args)
         {
-            if (!InitialiseAruments(args))
+            if (!InitialiseArguments(args))
                 Console.Write(ErrorMessage);
             else
             {
@@ -74,7 +74,7 @@ namespace Software.Engineer
         /// </summary>
         /// <param name="args">String array of args</param>
         /// <returns>true if all args are valid</returns>
-        private static bool InitialiseAruments(string[] args)
+        private static bool InitialiseArguments(string[] args)
         {
             var app = new CommandLineApplication
             {
